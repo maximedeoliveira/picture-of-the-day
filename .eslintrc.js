@@ -25,7 +25,7 @@ module.exports = {
     // Configuration to fit with Prettier
     'plugin:prettier/recommended',
   ],
-  plugins: ['unused-imports'],
+  plugins: ['unused-imports', 'jest'],
   rules: {
     // Unused imports
     'unused-imports/no-unused-imports': 'error',
