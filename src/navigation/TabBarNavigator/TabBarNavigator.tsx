@@ -21,8 +21,16 @@ const TabBarNavigator = () => {
             />
           );
         },
+        tabBarStyle: {
+          backgroundColor: '#121212',
+          // Remove border top of tab bar
+          borderTopWidth: 0,
+          elevation: 0,
+          paddingTop: 8,
+        },
         tabBarActiveTintColor: 'tomato',
-        tabBarInactiveTintColor: 'gray',
+        tabBarInactiveTintColor: '#6d6d6d',
+        headerShown: false,
       })}
     >
       <Tab.Screen name="Home" component={Home} />
