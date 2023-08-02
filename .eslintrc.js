@@ -38,5 +38,12 @@ module.exports = {
         argsIgnorePattern: '^_',
       },
     ],
+    // React
+    'react/no-unstable-nested-components': [
+      'warn',
+      {
+        allowAsProps: true,
+      },
+    ],
   },
 };
