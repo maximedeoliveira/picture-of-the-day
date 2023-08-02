@@ -10,7 +10,8 @@
     "format": "prettier --write .",
     "format:check": "prettier .",
     "lint": "eslint --fix --ext js,jsx,ts,tsx .",
-    "lint:check": "eslint --ext js,jsx,ts,tsx ."
+    "lint:check": "eslint --ext js,jsx,ts,tsx .",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "expo": "~49.0.5",
