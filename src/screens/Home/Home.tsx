@@ -1,17 +1,11 @@
 import { Image } from 'expo-image';
 import { StatusBar } from 'expo-status-bar';
-import { RotateCwIcon } from 'lucide-react-native';
 import React from 'react';
-import {
-  ActivityIndicator,
-  Dimensions,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import { Button } from 'react-native-paper';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import ErrorLoadingContent from '@/components/ErrorLoadingContent/ErrorLoadingContent';
+import LoadingContent from '@/components/LoadingContent/LoadingContent';
 import usePictureOfTheDay from '@/hooks/usePictureOfTheDay';
 
 const { width, height } = Dimensions.get('window');
@@ -20,27 +14,11 @@ const Home = () => {
   const { data: picture, isLoading, isError, refetch } = usePictureOfTheDay();
 
   if (isLoading) {
-    return (
-      <SafeAreaView edges={['top', 'right', 'left']} style={styles.container}>
-        <ActivityIndicator />
-      </SafeAreaView>
-    );
+    return <LoadingContent />;
   }
 
   if (isError) {
-    return (
-      <SafeAreaView edges={['top', 'right', 'left']} style={styles.container}>
-        <Text>Unable to load data</Text>
-        <Button
-          onPress={() => refetch()}
-          mode="contained"
-          icon={() => <RotateCwIcon size={18} color="white" />}
-          style={styles.retryButton}
-        >
-          Retry
-        </Button>
-      </SafeAreaView>
-    );
+    return <ErrorLoadingContent refetch={refetch} />;
   }
 
   return (
@@ -75,17 +53,14 @@ const styles = StyleSheet.create({
     left: 20,
     right: 20,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-  },
   date: {
     marginBottom: 8,
     color: 'white',
   },
-  retryButton: {
-    marginTop: 12,
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
   },
 });
 

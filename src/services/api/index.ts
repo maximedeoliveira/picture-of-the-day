@@ -1,10 +1,12 @@
 import Env from '@/config/Env';
 
-type Params = {
-  date?: string;
-};
+type Params =
+  | {
+      date: string;
+    }
+  | { start_date: string; end_date: string };
 
-export const api = async ({ params = {} }: { params?: Params } = {}) => {
+export const api = async ({ params }: { params: Params }) => {
   const queryParams = new URLSearchParams({
     ...(Env.SECURE_API ? { api_key: Env.API_KEY } : {}),
     ...params,

@@ -1,21 +1,19 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { PaperProvider } from 'react-native-paper';
 
 import Navigator from '@/navigation/Navigator';
-
-const queryClient = new QueryClient();
+import DataProvider from '@/providers/DataProvider/DataProvider';
+import ThemeProvider from '@/providers/ThemeProvider/ThemeProvider';
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <PaperProvider>
-        <StatusBar style="dark" />
+    <DataProvider>
+      <ThemeProvider>
+        <StatusBar style="light" />
         <Navigator />
-      </PaperProvider>
-    </QueryClientProvider>
+      </ThemeProvider>
+    </DataProvider>
   );
 }
 

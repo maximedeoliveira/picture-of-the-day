@@ -1,20 +1,74 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, ListRenderItem, StyleSheet, View } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
+
+import Container from '@/components/Container/Container';
+import ErrorLoadingContent from '@/components/ErrorLoadingContent/ErrorLoadingContent';
+import LoadingContent from '@/components/LoadingContent/LoadingContent';
+import usePictures, { PictureItem } from '@/hooks/usePictures';
+import ListItem from '@/screens/Gallery/components/ListItem/ListItem';
 
 const Gallery = () => {
+  const {
+    data,
+    isLoading,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = usePictures();
+
+  const flatData = data?.pages?.flatMap((page) => page.data);
+
+  if (isLoading) {
+    return <LoadingContent />;
+  }
+
+  if (isError) {
+    return <ErrorLoadingContent refetch={refetch} />;
+  }
+
+  const renderItem: ListRenderItem<PictureItem> = ({ item, index }) => {
+    return <ListItem index={index} url={item.url} />;
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Gallery!</Text>
-    </View>
+    <Container paddingHorizontal={0}>
+      <FlatList
+        data={flatData}
+        keyExtractor={(item) => item.url}
+        renderItem={renderItem}
+        numColumns={2}
+        style={styles.list}
+        onEndReached={() => {
+          if (!isFetchingNextPage && hasNextPage) {
+            fetchNextPage();
+          }
+        }}
+        ListFooterComponent={() => {
+          if (isFetchingNextPage) {
+            return (
+              <View style={styles.footerContainer}>
+                <ActivityIndicator animating={true} size="small" />
+              </View>
+            );
+          }
+
+          return <></>;
+        }}
+      />
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  list: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingTop: 18,
   },
+  footerContainer: { paddingVertical: 24 },
 });
 
 export default Gallery;
