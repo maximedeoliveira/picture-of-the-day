@@ -3,19 +3,25 @@ import { StyleSheet, ViewStyle } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+type Edges = 'top' | 'right' | 'bottom' | 'left';
+
 type ScreenProps = PropsWithChildren & {
+  edges?: Array<Edges>;
   style?: ViewStyle;
   justifyContent?: ViewStyle['justifyContent'];
   alignItems?: ViewStyle['alignItems'];
   paddingHorizontal?: number;
 };
 
-const Container = (props: ScreenProps) => {
+const Container = ({
+  edges = ['top', 'right', 'left'],
+  ...props
+}: ScreenProps) => {
   const theme = useTheme();
 
   return (
     <SafeAreaView
-      edges={['top', 'right', 'left']}
+      edges={edges}
       style={[
         styles.container,
         {

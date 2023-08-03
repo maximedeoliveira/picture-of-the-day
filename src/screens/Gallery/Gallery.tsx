@@ -30,7 +30,7 @@ const Gallery = () => {
   }
 
   const renderItem: ListRenderItem<PictureItem> = ({ item, index }) => {
-    return <ListItem index={index} url={item.url} />;
+    return <ListItem index={index} url={item.url} date={item.date} />;
   };
 
   return (

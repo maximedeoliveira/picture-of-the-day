@@ -3,11 +3,12 @@ import React from 'react';
 import { useTheme } from 'react-native-paper';
 
 import TabBarIcon from '@/components/TabBarIcon/TabBarIcon';
+import { TabBarRouteLabel } from '@/config/TabBar';
 import { TabBarParamList } from '@/navigation/TabBarNavigator/types';
 import Gallery from '@/screens/Gallery/Gallery';
 import Home from '@/screens/Home/Home';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<TabBarParamList>();
 
 const TabBarNavigator = () => {
   const theme = useTheme();
@@ -35,8 +36,16 @@ const TabBarNavigator = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Gallery" component={Gallery} />
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{ tabBarLabel: TabBarRouteLabel.Home }}
+      />
+      <Tab.Screen
+        name="Gallery"
+        component={Gallery}
+        options={{ tabBarLabel: TabBarRouteLabel.Gallery }}
+      />
     </Tab.Navigator>
   );
 };

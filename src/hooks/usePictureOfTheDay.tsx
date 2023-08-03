@@ -12,11 +12,14 @@ const schema = z.object({
   service_version: z.enum(['v1']),
   title: z.string(),
   url: z.string(),
+  copyright: z.string(),
 });
+
+export const usePictureOfTheDayKey = ['picture-of-the-day'];
 
 const usePictureOfTheDay = () => {
   return useQuery({
-    queryKey: ['picture-of-the-day'],
+    queryKey: usePictureOfTheDayKey,
     queryFn: async () => {
       const response = await api({
         params: {

@@ -12,9 +12,8 @@ const itemSchema = z.object({
   title: z.string(),
   url: z.string(),
   hdurl: z.string().optional(),
+  copyright: z.string().optional(),
 });
-
-export type PictureItem = z.infer<typeof itemSchema>;
 
 const schema = z.object({
   data: z.array(itemSchema),
@@ -24,12 +23,17 @@ const schema = z.object({
   }),
 });
 
+export type PictureItem = z.infer<typeof itemSchema>;
+export type InfinitePictures = z.infer<typeof schema>;
+
 const LIMIT = 10;
 const DATE_FORMAT = 'YYYY-MM-DD';
 
+export const usePicturesKey = ['pictures'];
+
 const usePictures = () => {
   return useInfiniteQuery({
-    queryKey: ['pictures'],
+    queryKey: usePicturesKey,
     queryFn: async ({ pageParam = dayjs() }) => {
       const startDate = pageParam.subtract(LIMIT, 'days');
       const endDate = pageParam;
