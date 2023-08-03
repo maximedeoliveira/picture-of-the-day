@@ -5,7 +5,8 @@ import { ActivityIndicator } from 'react-native-paper';
 import Container from '@/components/Container/Container';
 import ErrorLoadingContent from '@/components/ErrorLoadingContent/ErrorLoadingContent';
 import LoadingContent from '@/components/LoadingContent/LoadingContent';
-import usePictures, { PictureItem } from '@/hooks/usePictures';
+import usePictures from '@/hooks/usePictures';
+import { Picture } from '@/schemas/Picture';
 import ListItem from '@/screens/Gallery/components/ListItem/ListItem';
 
 const Gallery = () => {
@@ -26,10 +27,10 @@ const Gallery = () => {
   }
 
   if (isError) {
-    return <ErrorLoadingContent refetch={refetch} />;
+    return <ErrorLoadingContent action={refetch} />;
   }
 
-  const renderItem: ListRenderItem<PictureItem> = ({ item, index }) => {
+  const renderItem: ListRenderItem<Picture> = ({ item, index }) => {
     return <ListItem index={index} url={item.url} date={item.date} />;
   };
 

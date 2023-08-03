@@ -28,7 +28,7 @@ const Home = ({ navigation }: HomeProps) => {
   }
 
   if (isError) {
-    return <ErrorLoadingContent refetch={refetch} />;
+    return <ErrorLoadingContent action={refetch} />;
   }
 
   return (

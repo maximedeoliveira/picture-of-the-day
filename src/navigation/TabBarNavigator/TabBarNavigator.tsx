@@ -7,6 +7,7 @@ import { TabBarRouteLabel } from '@/config/TabBar';
 import { TabBarParamList } from '@/navigation/TabBarNavigator/types';
 import Gallery from '@/screens/Gallery/Gallery';
 import Home from '@/screens/Home/Home';
+import Search from '@/screens/Search/Search';
 
 const Tab = createBottomTabNavigator<TabBarParamList>();
 
@@ -45,6 +46,11 @@ const TabBarNavigator = () => {
         name="Gallery"
         component={Gallery}
         options={{ tabBarLabel: TabBarRouteLabel.Gallery }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={Search}
+        options={{ tabBarLabel: TabBarRouteLabel.Search }}
       />
     </Tab.Navigator>
   );

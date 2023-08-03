@@ -1,4 +1,5 @@
 import { Image } from 'expo-image';
+import { ArrowLeftIcon } from 'lucide-react-native';
 import React from 'react';
 import { Dimensions, ScrollView, StyleSheet } from 'react-native';
 import {
@@ -10,6 +11,7 @@ import {
 } from 'react-native-paper';
 
 import Container from '@/components/Container/Container';
+import ErrorLoadingContent from '@/components/ErrorLoadingContent/ErrorLoadingContent';
 import usePicture from '@/hooks/usePicture';
 import useShareFile from '@/hooks/useShareFile';
 import { StackScreenProps } from '@/navigation/StackNavigator/types';
@@ -29,6 +31,16 @@ const Picture = ({ route, navigation }: PictureProps) => {
 
     await share({ url: data?.url, title: data?.title });
   };
+
+  if (!data) {
+    return (
+      <ErrorLoadingContent
+        action={() => navigation.goBack()}
+        actionTitle="Retour"
+        actionIcon={<ArrowLeftIcon />}
+      />
+    );
+  }
 
   return (
     <Container edges={['left', 'right', 'top']} paddingHorizontal={0}>

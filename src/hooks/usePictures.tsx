@@ -1,39 +1,17 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { z } from 'zod';
 
+import { infinitePictureSchema } from '@/schemas/InfinitePicture';
 import { api } from '@/services/api';
-
-const itemSchema = z.object({
-  date: z.string(),
-  explanation: z.string(),
-  media_type: z.enum(['image', 'video']),
-  service_version: z.enum(['v1']),
-  title: z.string(),
-  url: z.string(),
-  hdurl: z.string().optional(),
-  copyright: z.string().optional(),
-});
-
-const schema = z.object({
-  data: z.array(itemSchema),
-  meta: z.object({
-    startDate: z.string(),
-    endDate: z.string(),
-  }),
-});
-
-export type PictureItem = z.infer<typeof itemSchema>;
-export type InfinitePictures = z.infer<typeof schema>;
 
 const LIMIT = 10;
 const DATE_FORMAT = 'YYYY-MM-DD';
 
-export const usePicturesKey = ['pictures'];
+export const picturesKey = ['pictures'];
 
 const usePictures = () => {
   return useInfiniteQuery({
-    queryKey: usePicturesKey,
+    queryKey: picturesKey,
     queryFn: async ({ pageParam = dayjs() }) => {
       const startDate = pageParam.subtract(LIMIT, 'days');
       const endDate = pageParam;
@@ -45,7 +23,7 @@ const usePictures = () => {
         },
       });
 
-      return schema.parse({
+      return infinitePictureSchema.parse({
         data: response,
         meta: {
           startDate: startDate.format(DATE_FORMAT),

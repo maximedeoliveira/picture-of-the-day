@@ -1,15 +1,21 @@
 import { RotateCwIcon } from 'lucide-react-native';
-import React from 'react';
+import React, { ReactElement, cloneElement } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Text, useTheme } from 'react-native-paper';
 
 import Container from '@/components/Container/Container';
 
 type ErrorLoadingContentProps = {
-  refetch: () => void;
+  action: () => void;
+  actionTitle?: string;
+  actionIcon?: ReactElement;
 };
 
-const ErrorLoadingContent = (props: ErrorLoadingContentProps) => {
+const ErrorLoadingContent = ({
+  action,
+  actionTitle = 'Réessayer',
+  actionIcon = <RotateCwIcon />,
+}: ErrorLoadingContentProps) => {
   const theme = useTheme();
 
   return (
@@ -19,12 +25,12 @@ const ErrorLoadingContent = (props: ErrorLoadingContentProps) => {
       </Text>
       <View style={styles.buttonContainer}>
         <Button
-          onPress={() => props.refetch()}
+          onPress={action}
           mode="contained"
-          icon={() => <RotateCwIcon size={18} color="white" />}
+          icon={() => cloneElement(actionIcon, { size: 18, color: 'white' })}
           dark={theme.dark}
         >
-          Réessayer
+          {actionTitle}
         </Button>
       </View>
     </Container>
