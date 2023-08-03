@@ -2,9 +2,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 
 import TabBarIcon from '@/components/TabBarIcon/TabBarIcon';
-import Gallery from '@/modules/gallery/screens/Gallery/Gallery';
-import Home from '@/modules/home/screens/Home/Home';
 import { TabBarParamList } from '@/navigation/TabBarNavigator/types';
+import Gallery from '@/screens/Gallery/Gallery';
+import Home from '@/screens/Home/Home';
 
 const Tab = createBottomTabNavigator();
 

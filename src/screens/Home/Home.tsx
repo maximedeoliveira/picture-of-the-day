@@ -12,7 +12,7 @@ import {
 import { Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import usePictureOfTheDay from '@/modules/home/screens/Home/hooks/usePictureOfTheDay';
+import usePictureOfTheDay from '@/hooks/usePictureOfTheDay';
 
 const { width, height } = Dimensions.get('window');
 
