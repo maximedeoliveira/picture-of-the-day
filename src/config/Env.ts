@@ -1,3 +1,4 @@
+import { API_KEY, API_URI, SECURE_API } from '@env';
 import { z } from 'zod';
 
 // Define schema
@@ -8,7 +9,7 @@ const schema = z
       .default('true')
       .transform((val) => val === 'true'),
     API_URI: z.string().url(),
-    API_KEY: z.string(),
+    API_KEY: z.string().default(''),
   })
   .refine(
     (val) => {
@@ -23,9 +24,9 @@ const schema = z
 
 // Get environment variables from process
 const _env = {
-  SECURE_API: process.env.EXPO_PUBLIC_SECURE_API,
-  API_URI: process.env.EXPO_PUBLIC_API_URI,
-  API_KEY: process.env.EXPO_PUBLIC_API_KEY,
+  SECURE_API: SECURE_API,
+  API_URI: API_URI,
+  API_KEY: API_KEY,
 };
 
 const parsedEnv = schema.safeParse(_env);
@@ -38,7 +39,8 @@ if (!parsedEnv.success) {
   );
 
   throw new Error(
-    'Invalid environment variables, Check terminal for more details '
+    'Invalid environment variables, Check terminal for more details ' +
+      JSON.stringify(parsedEnv.error.flatten().fieldErrors)
   );
 }
 
