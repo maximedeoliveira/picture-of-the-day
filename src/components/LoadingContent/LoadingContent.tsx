@@ -6,7 +6,7 @@ import Container from '@/components/Container/Container';
 const LoadingContent = () => {
   return (
     <Container justifyContent="center" alignItems="center">
-      <ActivityIndicator />
+      <ActivityIndicator testID="loader" />
     </Container>
   );
 };
