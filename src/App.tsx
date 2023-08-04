@@ -1,5 +1,4 @@
 import { registerRootComponent } from 'expo';
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 
 import Navigator from '@/navigation/Navigator';
@@ -10,7 +9,6 @@ function App() {
   return (
     <DataProvider>
       <ThemeProvider>
-        <StatusBar style="light" />
         <Navigator />
       </ThemeProvider>
     </DataProvider>

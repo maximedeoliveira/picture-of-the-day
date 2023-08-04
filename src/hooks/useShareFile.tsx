@@ -22,6 +22,7 @@ const useShareFile = () => {
 
     FileSystem.downloadAsync(url, fileUri)
       .then(() => {
+        throw new Error('');
         Sharing.shareAsync(fileUri, options).catch(() => {
           setIsError(true);
         });

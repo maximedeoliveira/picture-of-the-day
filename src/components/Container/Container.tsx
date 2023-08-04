@@ -3,6 +3,8 @@ import { StyleSheet, ViewStyle } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import FocusedStatusBar from '@/components/FocusedStatusBar/FocusedStatusBar';
+
 type Edges = 'top' | 'right' | 'bottom' | 'left';
 
 type ScreenProps = PropsWithChildren & {
@@ -11,30 +13,35 @@ type ScreenProps = PropsWithChildren & {
   justifyContent?: ViewStyle['justifyContent'];
   alignItems?: ViewStyle['alignItems'];
   paddingHorizontal?: number;
+  statusBarColor?: 'light' | 'dark';
 };
 
 const Container = ({
   edges = ['top', 'right', 'left'],
+  statusBarColor = 'dark',
   ...props
 }: ScreenProps) => {
   const theme = useTheme();
 
   return (
-    <SafeAreaView
-      edges={edges}
-      style={[
-        styles.container,
-        {
-          paddingHorizontal: props.paddingHorizontal ?? 12,
-          backgroundColor: theme.colors.background,
-          justifyContent: props?.justifyContent,
-          alignItems: props?.alignItems,
-        },
-        props.style,
-      ]}
-    >
-      {props.children}
-    </SafeAreaView>
+    <>
+      <FocusedStatusBar style={statusBarColor} />
+      <SafeAreaView
+        edges={edges}
+        style={[
+          styles.container,
+          {
+            paddingHorizontal: props.paddingHorizontal ?? 12,
+            backgroundColor: theme.colors.background,
+            justifyContent: props?.justifyContent,
+            alignItems: props?.alignItems,
+          },
+          props.style,
+        ]}
+      >
+        {props.children}
+      </SafeAreaView>
+    </>
   );
 };
 

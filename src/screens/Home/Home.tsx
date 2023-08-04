@@ -1,15 +1,15 @@
 import { CompositeScreenProps } from '@react-navigation/native';
+import dayjs from 'dayjs';
 import { Image } from 'expo-image';
-import { StatusBar } from 'expo-status-bar';
-import { ExternalLinkIcon } from 'lucide-react-native';
+import { SearchIcon } from 'lucide-react-native';
 import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Button, useTheme } from 'react-native-paper';
 
+import Container from '@/components/Container/Container';
 import ErrorLoadingContent from '@/components/ErrorLoadingContent/ErrorLoadingContent';
 import LoadingContent from '@/components/LoadingContent/LoadingContent';
-import usePictureOfTheDay from '@/hooks/usePictureOfTheDay';
+import usePictureByDate from '@/hooks/usePictureByDate';
 import { StackScreenProps } from '@/navigation/StackNavigator/types';
 import { TabBarScreenProps } from '@/navigation/TabBarNavigator/types';
 
@@ -21,7 +21,16 @@ type HomeProps = CompositeScreenProps<
 const { width, height } = Dimensions.get('window');
 
 const Home = ({ navigation }: HomeProps) => {
-  const { data: picture, isLoading, isError, refetch } = usePictureOfTheDay();
+  const today = dayjs().format('YYYY-MM-DD');
+
+  const theme = useTheme();
+
+  const {
+    data: picture,
+    isLoading,
+    isError,
+    refetch,
+  } = usePictureByDate(today);
 
   if (isLoading) {
     return <LoadingContent />;
@@ -32,39 +41,31 @@ const Home = ({ navigation }: HomeProps) => {
   }
 
   return (
-    <>
-      <StatusBar style="light" />
-      <SafeAreaView edges={['top', 'right', 'left']} style={styles.container}>
-        {picture && (
-          <Image source={{ uri: picture?.url }} style={styles.image} />
-        )}
-        <View style={styles.textContainer}>
-          <Text style={styles.date}>{picture?.date}</Text>
-          <Text style={styles.title}>{picture?.title}</Text>
-          <Button
-            mode="contained"
-            textColor="white"
-            style={styles.button}
-            icon={() => <ExternalLinkIcon color="white" size={18} />}
-            onPress={() =>
-              navigation.navigate('Picture', { source: 'pictureOfTheDay' })
-            }
-            compact
-          >
-            Détail
-          </Button>
-        </View>
-      </SafeAreaView>
-    </>
+    <Container
+      statusBarColor="light"
+      edges={['right', 'left']}
+      paddingHorizontal={0}
+    >
+      {picture && <Image source={{ uri: picture?.url }} style={styles.image} />}
+      <View style={styles.textContainer}>
+        <Text style={styles.date}>{picture?.date}</Text>
+        <Text style={styles.title}>{picture?.title}</Text>
+        <Button
+          mode="elevated"
+          style={styles.button}
+          icon={() => <SearchIcon color={theme.colors.primary} size={18} />}
+          onPress={() =>
+            navigation.navigate('Picture', { source: 'picture', date: today })
+          }
+        >
+          Détail
+        </Button>
+      </View>
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   image: {
     width,
     height,
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 16,
-    width: 150,
+    width: 120,
   },
 });
 

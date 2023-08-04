@@ -43,25 +43,28 @@ const Picture = ({ route, navigation }: PictureProps) => {
   }
 
   return (
-    <Container edges={['left', 'right', 'top']} paddingHorizontal={0}>
+    <Container edges={['left', 'right', 'top', 'bottom']} paddingHorizontal={0}>
       <Appbar.Header mode="small" style={styles.appBar} statusBarHeight={0}>
         <Appbar.Action icon="arrow-left" onPress={() => navigation.goBack()} />
-        {data?.date && (
-          <Appbar.Content
-            title={data?.date}
-            titleStyle={styles.appBarContent}
-          />
-        )}
+        <Appbar.Content
+          title={data?.date ?? ''}
+          titleStyle={styles.appBarContent}
+        />
         <Appbar.Action
           icon={
             !isLoading
               ? 'share-variant'
-              : () => <ActivityIndicator color="white" size={18} />
+              : () => (
+                  <ActivityIndicator
+                    color={theme.colors.onBackground}
+                    size={18}
+                  />
+                )
           }
           onPress={handleShare}
         />
       </Appbar.Header>
-      <ScrollView style={styles.scrollview}>
+      <ScrollView contentContainerStyle={styles.scrollview}>
         <Text style={styles.title}>{data?.title}</Text>
         {data?.copyright && (
           <Text style={styles.copyright}>{data.copyright}</Text>
@@ -75,10 +78,10 @@ const Picture = ({ route, navigation }: PictureProps) => {
         action={{
           label: 'Fermer',
           onPress: () => clear(),
+          textColor: theme.colors.primary,
         }}
-        style={{ backgroundColor: theme.colors.background }}
       >
-        <Text>
+        <Text style={{ color: theme.colors.inverseOnSurface }}>
           Une erreur s&apos;est produite lors de la récupération de l&apos;image
         </Text>
       </Snackbar>
@@ -94,8 +97,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   scrollview: {
-    paddingTop: 12,
-    paddingHorizontal: 12,
+    padding: 12,
   },
   title: {
     fontSize: 24,

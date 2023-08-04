@@ -37,14 +37,13 @@ const ListItem = (props: ItemProps) => {
 const styles = (index: number) =>
   StyleSheet.create({
     itemContainer: {
-      paddingBottom: 8,
-      paddingRight: index % 2 ? 0 : 4,
-      paddingLeft: index % 2 ? 4 : 0,
+      paddingBottom: 2,
+      paddingRight: index % 2 ? 0 : 1,
+      paddingLeft: index % 2 ? 1 : 0,
     },
     itemImage: {
-      width: (width - 32) / 2,
+      width: (width - 6) / 2,
       aspectRatio: 1,
-      borderRadius: 24,
     },
   });
 

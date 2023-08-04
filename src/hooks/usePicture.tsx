@@ -1,7 +1,6 @@
 import { InfiniteData, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { pictureByDateKey } from '@/hooks/usePictureByDate';
-import { pictureOfTheDayKey } from '@/hooks/usePictureOfTheDay';
 import { picturesKey } from '@/hooks/usePictures';
 import { InfinitePictures } from '@/schemas/InfinitePicture';
 import { Picture } from '@/schemas/Picture';
@@ -16,7 +15,7 @@ const usePicture = ({
   source,
   date,
 }: {
-  source: 'pictures' | 'picture' | 'pictureOfTheDay';
+  source: 'picture' | 'pictures';
   date?: string;
 }) => {
   const queryClient = useQueryClient();
@@ -24,10 +23,6 @@ const usePicture = ({
   return useQuery({
     queryKey: ['picture', { source, date }],
     queryFn: async () => {
-      if (source === 'pictureOfTheDay') {
-        return queryClient.getQueryData<Picture>(pictureOfTheDayKey);
-      }
-
       if (source === 'picture') {
         return queryClient.getQueryData<Picture>(pictureByDateKey(date!));
       }

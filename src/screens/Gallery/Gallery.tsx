@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FlatList, ListRenderItem, StyleSheet, View } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 
@@ -20,7 +20,10 @@ const Gallery = () => {
     refetch,
   } = usePictures();
 
-  const flatData = data?.pages?.flatMap((page) => page.data);
+  const flatData = useMemo(
+    () => data?.pages?.flatMap((page) => page.data),
+    [data]
+  );
 
   if (isLoading) {
     return <LoadingContent />;
@@ -66,7 +69,7 @@ const Gallery = () => {
 const styles = StyleSheet.create({
   list: {
     flex: 1,
-    paddingHorizontal: 12,
+    paddingHorizontal: 2,
     paddingTop: 18,
   },
   footerContainer: { paddingVertical: 24 },
