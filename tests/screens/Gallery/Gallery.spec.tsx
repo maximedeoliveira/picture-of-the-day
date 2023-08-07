@@ -32,15 +32,18 @@ describe('Gallery', () => {
   it('render gallery', async () => {
     const { getByTestId } = render(<Gallery />);
 
-    await act(async () => {
-      // Assert loader is visible
-      expect(getByTestId('loader')).toBeTruthy();
+    // Assert loader is visible
+    expect(getByTestId('loader')).toBeTruthy();
 
-      // Assert loader is removed
+    // Assert loader is removed
+    await act(async () => {
       await waitForElementToBeRemoved(() => getByTestId('loader'), {
         timeout: 30000,
       });
+    });
 
+    // Assert list is visible
+    await act(() => {
       expect(getByTestId('gallery-list')).toBeTruthy();
     });
   });
@@ -48,18 +51,20 @@ describe('Gallery', () => {
   it('show footer loader when end of list is reached', async () => {
     const { getByTestId } = render(<Gallery />);
 
-    await act(async () => {
-      // Assert loader is visible
-      expect(getByTestId('loader')).toBeTruthy();
+    // Assert loader is visible
+    expect(getByTestId('loader')).toBeTruthy();
 
-      // Assert loader is removed
+    // Assert loader is removed
+    await act(async () => {
       await waitForElementToBeRemoved(() => getByTestId('loader'), {
         timeout: 30000,
       });
+    });
 
-      fireEvent.scroll(getByTestId('gallery-list'), scrollEventData);
+    fireEvent.scroll(getByTestId('gallery-list'), scrollEventData);
 
-      // Assert list loader is visible
+    // Assert list loader is visible
+    await act(async () => {
       await waitFor(() => {
         expect(getByTestId('gallery-footer-loader')).toBeTruthy();
       });
@@ -73,14 +78,16 @@ describe('Gallery', () => {
 
     const { getByTestId, getByText } = render(<Gallery />);
 
+    // Assert loader is visible
+    expect(getByTestId('loader')).toBeTruthy();
+
+    // Assert loader is removed
     await act(async () => {
-      // Assert loader is visible
-      expect(getByTestId('loader')).toBeTruthy();
-
-      // Assert loader is removed
       await waitForElementToBeRemoved(() => getByTestId('loader'));
+    });
 
-      // Assert screen contains today's date
+    // Assert screen contains today's date
+    await act(() => {
       expect(
         getByText("Une erreur s'est produite lors du chargement des données.")
       ).toBeTruthy();
