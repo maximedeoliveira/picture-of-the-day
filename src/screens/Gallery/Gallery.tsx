@@ -54,13 +54,18 @@ const Gallery = () => {
           if (isFetchingNextPage) {
             return (
               <View style={styles.footerContainer}>
-                <ActivityIndicator animating={true} size="small" />
+                <ActivityIndicator
+                  animating={true}
+                  size="small"
+                  testID="gallery-footer-loader"
+                />
               </View>
             );
           }
 
           return <></>;
         }}
+        testID="gallery-list"
       />
     </Container>
   );

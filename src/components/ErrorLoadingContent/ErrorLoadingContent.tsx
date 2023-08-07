@@ -29,6 +29,7 @@ const ErrorLoadingContent = ({
           mode="contained"
           icon={() => cloneElement(actionIcon, { size: 18, color: 'white' })}
           dark={theme.dark}
+          testID="error-button"
         >
           {actionTitle}
         </Button>
