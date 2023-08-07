@@ -83,3 +83,6 @@ jobs:
 
       - name: Run tests
         run: pnpm run test
+        env:
+          API_URI: ${{ secrets.API_URI }}
+          API_KEY: ${{ secrets.API_KEY }}
