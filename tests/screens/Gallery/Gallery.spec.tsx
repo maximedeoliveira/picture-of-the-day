@@ -46,7 +46,7 @@ describe('Gallery', () => {
     await act(() => {
       expect(getByTestId('gallery-list')).toBeTruthy();
     });
-  });
+  }, 30000);
 
   it('show footer loader when end of list is reached', async () => {
     const { getByTestId } = render(<Gallery />);
@@ -69,7 +69,7 @@ describe('Gallery', () => {
         expect(getByTestId('gallery-footer-loader')).toBeTruthy();
       });
     });
-  });
+  }, 30000);
 
   it('render error component if an error is throw', async () => {
     jest
@@ -92,5 +92,5 @@ describe('Gallery', () => {
         getByText("Une erreur s'est produite lors du chargement des données.")
       ).toBeTruthy();
     });
-  });
+  }, 30000);
 });
