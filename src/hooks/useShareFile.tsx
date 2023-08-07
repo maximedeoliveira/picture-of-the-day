@@ -16,13 +16,12 @@ const useShareFile = () => {
 
     const options = {
       mimeType: 'image/jpeg',
-      dialogTitle: 'Share the image',
+      dialogTitle: 'Partager une image',
       UTI: 'image/jpeg',
     };
 
     FileSystem.downloadAsync(url, fileUri)
       .then(() => {
-        throw new Error('');
         Sharing.shareAsync(fileUri, options).catch(() => {
           setIsError(true);
         });
