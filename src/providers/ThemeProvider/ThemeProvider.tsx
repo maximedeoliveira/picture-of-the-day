@@ -1,6 +1,5 @@
 import React, { PropsWithChildren } from 'react';
 import { PaperProvider } from 'react-native-paper';
-// import { MD3DarkTheme as DefaultTheme } from 'react-native-paper';
 import { MD3LightTheme as DefaultTheme } from 'react-native-paper';
 
 type ThemeProviderProps = PropsWithChildren;

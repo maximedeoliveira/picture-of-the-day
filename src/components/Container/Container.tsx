@@ -19,6 +19,7 @@ type ScreenProps = PropsWithChildren & {
 const Container = ({
   edges = ['top', 'right', 'left'],
   statusBarColor = 'dark',
+  paddingHorizontal = 12,
   ...props
 }: ScreenProps) => {
   const theme = useTheme();
@@ -31,7 +32,7 @@ const Container = ({
         style={[
           styles.container,
           {
-            paddingHorizontal: props.paddingHorizontal ?? 12,
+            paddingHorizontal: paddingHorizontal,
             backgroundColor: theme.colors.background,
             justifyContent: props?.justifyContent,
             alignItems: props?.alignItems,

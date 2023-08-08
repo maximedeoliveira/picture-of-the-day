@@ -2,6 +2,12 @@ import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import { useState } from 'react';
 
+const options = {
+  mimeType: 'image/jpeg',
+  dialogTitle: 'Partager une image',
+  UTI: 'image/jpeg',
+};
+
 const useShareFile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -13,12 +19,6 @@ const useShareFile = () => {
       FileSystem.cacheDirectory +
       title.toLowerCase().replaceAll(' ', '-') +
       '.jpg';
-
-    const options = {
-      mimeType: 'image/jpeg',
-      dialogTitle: 'Partager une image',
-      UTI: 'image/jpeg',
-    };
 
     FileSystem.downloadAsync(url, fileUri)
       .then(() => {

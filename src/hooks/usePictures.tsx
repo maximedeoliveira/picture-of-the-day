@@ -9,6 +9,9 @@ const DATE_FORMAT = 'YYYY-MM-DD';
 
 export const picturesKey = ['pictures'];
 
+/**
+ * This hook is used to fetch pictures by pages, using a date as page separator
+ */
 const usePictures = () => {
   return useInfiniteQuery({
     queryKey: picturesKey,

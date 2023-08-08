@@ -15,6 +15,10 @@ export const fetchPictureByDate = async (date: string) => {
   return pictureSchema.parse(response);
 };
 
+/**
+ * This hook is used to fetch a picture by date
+ * @param date
+ */
 const usePictureByDate = (date?: string) => {
   return useQuery({
     queryKey: pictureByDateKey(date!),

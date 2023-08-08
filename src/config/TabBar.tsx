@@ -5,7 +5,7 @@ import { TabBarParamList } from '@/navigation/TabBarNavigator/types';
 
 export const TabBarRouteLabel: Record<keyof TabBarParamList, string> = {
   Home: 'Accueil',
-  Gallery: 'Gallerie',
+  Gallery: 'Galerie',
   Search: 'Recherche',
 };
 

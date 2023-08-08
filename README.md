@@ -1,5 +1,9 @@
 # Picture of the day
 
+## 👀 Preview with expo
+
+<img src='./eas-update.svg' width='200' alt="Expo preview" />
+
 ## 🚀 Getting started
 
 ### Environment variable
