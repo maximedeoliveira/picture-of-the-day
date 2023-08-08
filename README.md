@@ -1,6 +1,6 @@
 # Picture of the day
 
-## 👀 Preview with expo
+## 👀 Preview
 
 <img src='./eas-update.svg' width='200' alt="Expo preview" />
 
